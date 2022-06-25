@@ -54,6 +54,10 @@ const Home: React.FC = () => {
         }
     }
 
+    const handleJoinGame = () => {
+        navigate(`games/${gameUuid}`);
+    }
+
     const handleCloseAlert = () => {
         setErrorMessage('');
     }
@@ -100,7 +104,7 @@ const Home: React.FC = () => {
                         <Button
                             variant='primary'
                             size='lg'
-                            onClick={handleCreateGame}
+                            onClick={handleJoinGame}
                         >
                             Join game
                         </Button>
