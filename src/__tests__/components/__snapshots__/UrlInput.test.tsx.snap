@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UrlInput tests should render properly 1`] = `
+"<div>
+  <div className=\\"input-group mb-3\\">
+    <span id=\\"-url-prefix\\" className=\\"input-group-text\\">
+      http://localhost:3000/
+    </span>
+    <input id=\\"\\" className=\\"form-control \\" aria-describedby=\\"-url-prefix\\" />
+  </div>
+</div>"
+`;

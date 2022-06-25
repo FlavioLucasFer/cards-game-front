@@ -1,13 +1,17 @@
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Divider from '../../components/Divider';
+import UrlInput from '../../components/UrlInput';
 
 configure({ adapter: new Adapter() });
 
-describe('Divider tests', () => {
+describe('UrlInput tests', () => {
     it('should render properly', () => {
-        const wrapper = shallow(<Divider />);
+        const wrapper = shallow(
+            <UrlInput 
+                urlPrefix='http://localhost:3000/'
+            />
+        );
 
         expect(wrapper.debug()).toMatchSnapshot();
     });
