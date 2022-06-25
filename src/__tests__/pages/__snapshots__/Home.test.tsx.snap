@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home tests should render properly 1`] = `
+"<Styled(Container) fluid={true}>
+  <Row className=\\"justify-content-center align-items-center h-100\\">
+    <Styled(Card) bg=\\"dark\\">
+      <CardBody className=\\"d-grid pb-5\\">
+        <styled.h1>
+          Cards Game
+        </styled.h1>
+        <Button variant=\\"success\\" size=\\"lg\\" onClick={[Function: handleCreateGame]} active={false} disabled={false}>
+          Create a game
+        </Button>
+        <Alert variant=\\"danger\\" dismissible={true} onClose={[Function: handleCloseAlert]} show={false} transition={{...}} closeLabel=\\"Close alert\\" />
+        <Divider color=\\"rgba(255, 255, 255, .3)\\" />
+        <UrlInput id=\\"game-url\\" label=\\"GameURL\\" labelClassname=\\"text-white\\" urlPrefix=\\"http://localhost:3000/\\" value=\\"\\" onChange={[Function: handleGameUuidChange]} />
+        <Button variant=\\"primary\\" size=\\"lg\\" onClick={[Function: handleJoinGame]} active={false} disabled={false}>
+          Join game
+        </Button>
+      </CardBody>
+    </Styled(Card)>
+  </Row>
+</Styled(Container)>"
+`;
