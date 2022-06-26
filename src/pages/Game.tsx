@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../api';
 import AddPlayerToGame from '../modals/AddPlayerToGame';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import Divider from '../components/Divider';
-import { Button, Stack, Tab, Tabs, ToggleButton } from 'react-bootstrap';
-import axios from 'axios';
+import { Button, Tab, Tabs, ToastContainer, ToggleButton } from 'react-bootstrap';
+import Toast from '../components/Toast';
 
 const FullScreenContainer = styled(Container)`
     height: 100%;
@@ -49,6 +49,12 @@ interface DeckData {
     updatedAt: string;
 }
 
+interface ToastInfo {
+    title: string;
+    message: string;
+    bg: string;
+}
+
 const Game: React.FC = () => {
     const navigate = useNavigate();
     const { uuid } = useParams<string>();
@@ -57,6 +63,7 @@ const Game: React.FC = () => {
     const [game, setGame] = useState<GameData>();
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
+    const [toastStack, setToastStack] = useState<ToastInfo[]>([]);
 
     useEffect(() => {
         getGame();
@@ -82,25 +89,64 @@ const Game: React.FC = () => {
     }
 
     const shuffle = async () => {
+        const toastTitle = 'Shuffle';
+
         try {
             await axiosInstance.post(`/games/${uuid}/shuffle`);
+
+            pushToast(
+                toastTitle,
+                'The game deck was successfully shuffled.',
+                'success',
+            );
         } catch (err) {
-            console.log('err');
+            pushToast(
+                toastTitle,
+                'An unexpected erros has occurred. Game deck was not shuffed.',
+                'danger',
+            );
         }
     }
 
     const addDeck = async () => {
+        const toastTitle = 'Add deck';
+        let toastMessage = 'Deck successfully added to the game deck';
+
         try {
             const { data: deck } = await axiosInstance.post<DeckData>('/decks');
             await axiosInstance.post(`/games/${uuid}/decks`, {
                 deckId: deck.id,
             }); 
-
-            if (autoShuffle)
-                await shuffle();
         } catch (err) {
-            console.log('err');
+            pushToast(
+                toastTitle,
+                'An unexpected erros has occurred. Deck was not added.',
+                'danger',
+            );
+            return;
         }
+
+        if (autoShuffle) {
+            try {
+                await axiosInstance.post(`/games/${uuid}/shuffle`);
+                toastMessage += ' and shuffled';
+            } catch (err) {
+                pushToast(
+                    toastTitle,
+                    'The deck has been added but, for some unexpected reason, it cannot be shuffled. Please, try to shuffle by clicking on the shuffle button.',
+                    'warning',
+                );
+
+                return;
+            }
+        }
+
+
+        pushToast(
+            toastTitle,
+            `${toastMessage}.`,
+            'success',
+        );
     }
 
     const handlePlayerJoin = () => {
@@ -109,6 +155,17 @@ const Game: React.FC = () => {
 
     const handleCheckAutoShuffle = () => {
         setAutoShuffle(!autoShuffle);
+    }
+
+    const pushToast = (title: string, message: string = '', bg: string = 'light') => {
+        setToastStack((stack) => Object.assign([], { 
+            ...stack, 
+            [stack.length+1]: {
+                title,
+                message,
+                bg,
+            }, 
+        }));
     }
 
     return (
@@ -141,7 +198,12 @@ const Game: React.FC = () => {
                                     </Col>
 
                                     <Col className='d-flex flex-row-reverse'>
-                                        <Button variant='warning'>Shuffle</Button>
+                                        <Button 
+                                            variant='warning'
+                                            onClick={shuffle}
+                                        >
+                                            Shuffle
+                                        </Button>
 
                                         <Divider 
                                             direction='vertical'
@@ -178,7 +240,18 @@ const Game: React.FC = () => {
                             </HeaderContent>
                         </HeaderRow>
 
-                        <Row>
+                        <Row className='position-relative'>
+                            <ToastContainer position='top-end'>
+                                {toastStack.map((info: ToastInfo, index: number) => (
+                                    <Toast
+                                        key={`${info.title}-${index}`}
+                                        title={info.title}
+                                        message={info.message}
+                                        bg={info.bg}
+                                    />
+                                ))}
+                            </ToastContainer>
+
                             <h2>Your hand ({player.nickname})</h2>
                             
                         </Row>
