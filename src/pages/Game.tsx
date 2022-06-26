@@ -88,6 +88,28 @@ const Game: React.FC = () => {
         }
     }
 
+    const dealCard = async () => {
+        const toastTitle = 'Deal card';
+
+        try {
+            await axiosInstance.post(`/games/${uuid}/deal-cards`, {
+                player_id: player.id,
+            });
+
+            pushToast(
+                toastTitle,
+                'Card successfully dealt.',
+                'success',
+            );
+        } catch (err) {
+            pushToast(
+                toastTitle,
+                'An unexpected error has occurred. No card was not dealt.',
+                'danger',
+            );
+        }
+    }
+
     const shuffle = async () => {
         const toastTitle = 'Shuffle';
 
@@ -102,7 +124,7 @@ const Game: React.FC = () => {
         } catch (err) {
             pushToast(
                 toastTitle,
-                'An unexpected erros has occurred. Game deck was not shuffed.',
+                'An unexpected error has occurred. Game deck was not shuffed.',
                 'danger',
             );
         }
@@ -120,7 +142,7 @@ const Game: React.FC = () => {
         } catch (err) {
             pushToast(
                 toastTitle,
-                'An unexpected erros has occurred. Deck was not added.',
+                'An unexpected error has occurred. Deck was not added.',
                 'danger',
             );
             return;
@@ -140,7 +162,6 @@ const Game: React.FC = () => {
                 return;
             }
         }
-
 
         pushToast(
             toastTitle,
@@ -194,7 +215,9 @@ const Game: React.FC = () => {
 
                                 <Row>
                                     <Col>
-                                        <Button>Deal card</Button>
+                                        <Button onClick={dealCard}>
+                                            Deal card
+                                        </Button>
                                     </Col>
 
                                     <Col className='d-flex flex-row-reverse'>
