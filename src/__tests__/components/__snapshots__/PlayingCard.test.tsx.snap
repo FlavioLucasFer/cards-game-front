@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayingCard tests should render properly 1`] = `
+"<styled.div title=\\"King of hearts\\" style={{...}}>
+  🂾
+</styled.div>"
+`;
