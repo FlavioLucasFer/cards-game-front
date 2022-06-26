@@ -11,6 +11,8 @@ import { RootState } from '../redux/store';
 import Divider from '../components/Divider';
 import { Button, Tab, Tabs, ToastContainer, ToggleButton } from 'react-bootstrap';
 import Toast from '../components/Toast';
+import PlayingCard from '../components/PlayingCard';
+import moment from 'moment';
 
 const FullScreenContainer = styled(Container)`
     height: 100%;
@@ -32,8 +34,35 @@ const HeaderDivider = styled(Divider)`
     border-radius: 50%;
 `;
 
+const MainCol = styled(Col)`
+    @media(max-width: 768px) {
+        height: 730px !important;
+    }
+`;
+
 const GameInfoP = styled.p`
     margin-bottom: 0;
+`;
+
+const PlayingCardsRow = styled(Row)`
+    overflow-y: auto;
+    height: 660px;
+
+    @media(max-width: 1440px) {
+        height: 570px;
+    }
+
+    @media(max-width: 1024px) {
+        height: 550px;
+    }
+
+    @media(max-width: 768px) {
+        height: 530px;
+    }
+
+    @media(max-width: 425px) {
+        height: 470px;
+    }
 `;
 
 interface GameData {
@@ -45,6 +74,19 @@ interface GameData {
 
 interface DeckData {
     id: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface PlayingCardData {
+    id: number;
+    deckId: number,
+    playerId: number,
+    face: string,
+    suit: string,
+    index: number,
+    faceValue: number,
+    dealt: boolean,
     createdAt: string;
     updatedAt: string;
 }
@@ -61,12 +103,16 @@ const Game: React.FC = () => {
     const player = useSelector((state: RootState) => state.player);
 
     const [game, setGame] = useState<GameData>();
+    const [playingCards, setPlayingCards] = useState<PlayingCardData[]>([]);
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
     const [toastStack, setToastStack] = useState<ToastInfo[]>([]);
 
     useEffect(() => {
-        getGame();
+        Promise.all([
+            getGame(),
+            getCards(),
+        ]);
     }, [uuid]);
 
     const getGame = async () => {
@@ -84,6 +130,16 @@ const Game: React.FC = () => {
             if (player.gameId !== data.id)
                 setShowAddPlayerModel(true);
         } catch (err) {
+            navigate('/');
+        }
+    }
+
+    const getCards = async () => {
+        try {
+            const { data } = await axiosInstance.get(`/players/${player.id}/cards`);
+            setPlayingCards(data);
+        } catch (err) {
+            console.log('err:', err);
             navigate('/');
         }
     }
@@ -108,6 +164,8 @@ const Game: React.FC = () => {
                 'danger',
             );
         }
+
+        await getCards();
     }
 
     const shuffle = async () => {
@@ -193,7 +251,7 @@ const Game: React.FC = () => {
         <>
             <FullScreenContainer fluid>
                 <Row className='vh-100'>
-                    <Col 
+                    <MainCol 
                         className='h-100'
                         sm={12}
                         md={8}
@@ -205,7 +263,14 @@ const Game: React.FC = () => {
                                         <strong>Game ID: </strong>{uuid}
                                         <br/>
                                         <strong>Game URL: </strong>http://localhost:3000/games/{uuid}
+                                    
                                     </GameInfoP>
+                                    <small>
+                                        <em>
+                                            <b>Created at: </b>
+                                            {moment(game?.createdAt).format('YYYY/MM/DD HH:mm:ss')}
+                                        </em>
+                                    </small>
                                 </Row>
 
                                 <HeaderDivider 
@@ -277,8 +342,17 @@ const Game: React.FC = () => {
 
                             <h2>Your hand ({player.nickname})</h2>
                             
+                            <PlayingCardsRow>
+                                {playingCards.map((card: PlayingCardData, index: number) => (
+                                    <PlayingCard 
+                                        key={`${card.face}-${card.suit}-${index}`}
+                                        face={card.face}
+                                        suit={card.suit}
+                                    />
+                                ))}
+                            </PlayingCardsRow>
                         </Row>
-                    </Col>
+                    </MainCol>
 
                     <Col 
                         className='h-100 bg-dark pt-2' 

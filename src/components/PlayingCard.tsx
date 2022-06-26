@@ -135,6 +135,7 @@ const propTypes = {
 export type PlayingCardProps = PropTypes.InferProps<typeof propTypes>;
 
 const CardBox = styled.div`
+    position: relative;
     width: 132px;
     font-size: 8rem;
     cursor: pointer;
