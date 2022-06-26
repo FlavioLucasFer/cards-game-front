@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal, { ModalProps } from 'react-bootstrap/Modal';
+
 import axiosInstance from '../api';
 import LabeledInput from '../components/Input';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { Player, setPlayer } from '../redux/reducers/player';
-import axios from 'axios';
 
 const propTypes = {
     gameUuid: PropTypes.string.isRequired,

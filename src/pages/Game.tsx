@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import axiosInstance from '../api';
-import AddPlayerToGame from '../modals/AddPlayerToGame';
-import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import Divider from '../components/Divider';
-import { Button, Stack, Tab, Tabs, ToastContainer, ToggleButton } from 'react-bootstrap';
 import Toast from '../components/Toast';
 import PlayingCard from '../components/PlayingCard';
-import moment from 'moment';
+import AddPlayerToGame from '../modals/AddPlayerToGame';
 
 const FullScreenContainer = styled(Container)`
     height: 100%;
@@ -416,7 +421,7 @@ const Game: React.FC = () => {
                                             checked={autoShuffle}
                                             value='1'
                                             onChange={handleCheckAutoShuffle}
-                                            title='Auto shuffle the game deck when adding a new deck'
+                                            title='If checked, auto shuffle the game deck when adding a new deck'
                                         >
                                             Auto shuffle
                                         </ToggleButton>

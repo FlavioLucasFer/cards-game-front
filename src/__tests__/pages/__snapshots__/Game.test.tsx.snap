@@ -43,7 +43,7 @@ exports[`Game tests should render properly 1`] = `
                   Add deck
                 </Button>
                 <Divider direction=\\"vertical\\" color=\\"#2f6b4d\\" margin=\\"18px 10px\\" />
-                <ToggleButton id=\\"toggle-check\\" type=\\"checkbox\\" variant=\\"outline-warning\\" checked={false} value=\\"1\\" onChange={[Function: handleCheckAutoShuffle]} title=\\"Auto shuffle the game deck when adding a new deck\\">
+                <ToggleButton id=\\"toggle-check\\" type=\\"checkbox\\" variant=\\"outline-warning\\" checked={false} value=\\"1\\" onChange={[Function: handleCheckAutoShuffle]} title=\\"If checked, auto shuffle the game deck when adding a new deck\\">
                   Auto shuffle
                 </ToggleButton>
               </Col>
