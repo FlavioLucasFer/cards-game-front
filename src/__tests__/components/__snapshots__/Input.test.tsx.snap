@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input tests should render properly 1`] = `
+"<div>
+  <div className=\\"input-group mb-3\\">
+    <input id=\\"\\" className=\\"form-control \\" />
+  </div>
+</div>"
+`;

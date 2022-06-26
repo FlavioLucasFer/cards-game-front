@@ -105,6 +105,7 @@ const Home: React.FC = () => {
                             variant='primary'
                             size='lg'
                             onClick={handleJoinGame}
+                            disabled={!gameUuid}
                         >
                             Join game
                         </Button>

@@ -14,7 +14,7 @@ exports[`Home tests should render properly 1`] = `
         <Alert variant=\\"danger\\" dismissible={true} onClose={[Function: handleCloseAlert]} show={false} transition={{...}} closeLabel=\\"Close alert\\" />
         <Divider color=\\"rgba(255, 255, 255, .3)\\" />
         <UrlInput id=\\"game-url\\" label=\\"GameURL\\" labelClassname=\\"text-white\\" urlPrefix=\\"http://localhost:3000/\\" value=\\"\\" onChange={[Function: handleGameUuidChange]} />
-        <Button variant=\\"primary\\" size=\\"lg\\" onClick={[Function: handleJoinGame]} active={false} disabled={false}>
+        <Button variant=\\"primary\\" size=\\"lg\\" onClick={[Function: handleJoinGame]} disabled={true} active={false}>
           Join game
         </Button>
       </CardBody>
