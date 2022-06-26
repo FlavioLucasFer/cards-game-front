@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game tests should render properly 1`] = `
+"<Fragment>
+  <Styled(Container) fluid={true}>
+    <Row className=\\"vh-100\\">
+      <Styled(Col) className=\\"h-100\\" sm={12} md={8}>
+        <Styled(Row)>
+          <styled.div>
+            <Row>
+              <styled.p>
+                <strong>
+                  Game ID: 
+                </strong>
+                <br />
+                <strong>
+                  Game URL: 
+                </strong>
+                http://localhost:3000/games/
+              </styled.p>
+              <small>
+                <em>
+                  <b>
+                    Created at: 
+                  </b>
+                  2019/12/31 21:00:00
+                </em>
+              </small>
+            </Row>
+            <Styled(Divider) color=\\"#2f6b4d\\" margin=\\"10px 10px\\" />
+            <Row>
+              <Col>
+                <Button onClick={[Function: dealCard]} variant=\\"primary\\" active={false} disabled={false}>
+                  Deal card
+                </Button>
+              </Col>
+              <Col className=\\"d-flex flex-row-reverse\\">
+                <Button variant=\\"warning\\" onClick={[Function: shuffle]} active={false} disabled={false}>
+                  Shuffle
+                </Button>
+                <Divider direction=\\"vertical\\" color=\\"#2f6b4d\\" margin=\\"18px 10px\\" />
+                <Button variant=\\"success\\" onClick={[Function: addDeck]} active={false} disabled={false}>
+                  Add deck
+                </Button>
+                <Divider direction=\\"vertical\\" color=\\"#2f6b4d\\" margin=\\"18px 10px\\" />
+                <ToggleButton id=\\"toggle-check\\" type=\\"checkbox\\" variant=\\"outline-warning\\" checked={false} value=\\"1\\" onChange={[Function: handleCheckAutoShuffle]} title=\\"Auto shuffle the game deck when adding a new deck\\">
+                  Auto shuffle
+                </ToggleButton>
+              </Col>
+            </Row>
+          </styled.div>
+        </Styled(Row)>
+        <Row className=\\"position-relative\\">
+          <ToastContainer position=\\"top-end\\" />
+          <h2>
+            Your hand (
+            )
+          </h2>
+          <Styled(Row) />
+        </Row>
+      </Styled(Col)>
+      <Col className=\\"h-100 bg-dark pt-2\\" sm={12} md={4}>
+        <Tabs defaultActiveKey=\\"players\\" id=\\"game-info\\" variant=\\"tabs\\" mountOnEnter={false} unmountOnExit={false}>
+          <Tab eventKey=\\"players\\" title=\\"Players\\" className=\\"p-3\\" />
+          <Tab eventKey=\\"undealt-suits\\" title=\\"Undealt suits\\" className=\\"p-3 text-white fs-5\\">
+            <p>
+              ♥ Hearts: 
+              0
+            </p>
+            <p>
+              ♠ Spades: 
+              0
+            </p>
+            <p>
+              ♣ Clubs: 
+              0
+            </p>
+            <p>
+              ♦ Diamonds: 
+              0
+            </p>
+          </Tab>
+          <Tab eventKey=\\"undealt-cards\\" title=\\"Undealt cards\\" className=\\"p-3\\">
+            <Styled(Row) />
+          </Tab>
+        </Tabs>
+        <small className=\\"fst-italic text-white text-center w-100\\">
+          Data auto-update every 15 seconds
+        </small>
+      </Col>
+    </Row>
+  </Styled(Container)>
+  <AddPlayerToGame gameUuid=\\"\\" show={true} onJoin={[Function: handlePlayerJoin]} />
+</Fragment>"
+`;

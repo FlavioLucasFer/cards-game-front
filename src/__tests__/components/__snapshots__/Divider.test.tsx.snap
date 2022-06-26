@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Divider tests should render properly 1`] = `"<styled.div />"`;
+exports[`Divider tests should render properly (horizontal) 1`] = `"<div style={{...}} />"`;
+
+exports[`Divider tests should render properly (vertical) 1`] = `"<div style={{...}} />"`;

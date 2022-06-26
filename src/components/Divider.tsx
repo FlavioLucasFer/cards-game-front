@@ -16,24 +16,24 @@ const Divider: React.FC<DividerProps> = props => {
         direction = 'horizontal',
         margin,
     } = props; 
-
-    const DividerDiv = styled.div`
-        ${
-            direction === 'horizontal' ?
-            `
-                border-top: 2px solid ${color};
-                margin: ${margin || '15px 0'};
-            `
-            :
-            `
-                border-right: 2px solid ${color};
-                margin: ${margin || '0 15px'};
-            `
-        }
-    `;
     
+    if (direction === 'horizontal')
+        return (
+            <div 
+                style={{
+                    borderTop: `2px solid ${color}`,
+                    margin: margin || '15px 0',
+                }} 
+            />
+        );
+
     return (
-        <DividerDiv />
+        <div 
+            style={{
+                borderRight: `2px solid ${color}`,
+                margin: margin || '0 15px',
+            }} 
+        />
     );
 }
 
