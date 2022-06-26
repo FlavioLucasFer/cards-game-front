@@ -130,6 +130,11 @@ const getCard = (face: string, suit: string) => {
 const propTypes = {
     face: PropTypes.string.isRequired,
     suit: PropTypes.string.isRequired,
+    info: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]),
+    infoTitle: PropTypes.string,
 };
 
 export type PlayingCardProps = PropTypes.InferProps<typeof propTypes>;
@@ -141,10 +146,21 @@ const CardBox = styled.div`
     cursor: pointer;
 `;
 
+const Info = styled.span`
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+`;
+
 const PlayingCard: React.FC<PlayingCardProps> = props => {
     const {
         face,
         suit,
+        info,
+        infoTitle,
     } = props;
 
     let color = 'black'
@@ -157,6 +173,9 @@ const PlayingCard: React.FC<PlayingCardProps> = props => {
             title={`${capitalize(face)} of ${suit.toLowerCase()}`}
             style={{ color }}
         >
+            {info &&
+                <Info title={infoTitle || ''}>{info}</Info>
+            }
             {getCard(face.toLowerCase(), suit.toLowerCase())}
         </CardBox>
     );

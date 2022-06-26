@@ -65,6 +65,19 @@ const PlayingCardsRow = styled(Row)`
     }
 `;
 
+const UndealtPlayingCardsRow = styled(Row)`
+    overflow-y: auto;
+    height: 810px;
+
+    @media(max-width: 1440px) {
+        height: 720px;
+    }
+
+    @media(max-width: 1024px) {
+        height: 680px;
+    }
+`;
+
 interface GameData {
     id: number;
     uuid: string;
@@ -107,6 +120,13 @@ interface UndealtSuitsData {
     diamonds: number;
 }
 
+interface UndealtPlayingCardsData {
+    face: string;
+    suit: string;
+    faceValue: number;
+    remaining: number;
+}
+
 interface ToastInfo {
     title: string;
     message: string;
@@ -127,6 +147,7 @@ const Game: React.FC = () => {
         clubs: 0,
         diamonds: 0,
     });
+    const [undealtPlayingCards, setUndealtPlayingCards] = useState<UndealtPlayingCardsData[]>([]);
 
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
@@ -143,6 +164,7 @@ const Game: React.FC = () => {
             getCards(),
             getPlayers(),
             getUndealtSuits(),
+            getUndealtPlayingCards(),
         ]);
     }
 
@@ -189,6 +211,16 @@ const Game: React.FC = () => {
         try {
             const { data } = await axiosInstance.get<UndealtSuitsData>(`/games/${uuid}/undealt-suits`);
             setUndealtSuits(data);
+        } catch (err) {
+            console.log('err:', err);
+            navigate('/');
+        }
+    }
+
+    const getUndealtPlayingCards = async () => {
+        try {
+            const { data } = await axiosInstance.get<UndealtPlayingCardsData[]>(`/games/${uuid}/undealt-cards`);
+            setUndealtPlayingCards(data);
         } catch (err) {
             console.log('err:', err);
             navigate('/');
@@ -458,8 +490,19 @@ const Game: React.FC = () => {
                             <Tab 
                                 eventKey='undealt-cards' 
                                 title='Undealt cards'
+                                className='p-3'
                             >
-                                <h3>undealt cards tab</h3>
+                                <UndealtPlayingCardsRow>
+                                    {undealtPlayingCards.map((card: UndealtPlayingCardsData) => (
+                                        <PlayingCard 
+                                            key={`${card.face}-${card.suit}-${card.faceValue}-${card.remaining}`}
+                                            face={card.face}
+                                            suit={card.suit}
+                                            info={card.remaining}
+                                            infoTitle={`Ramaining ${card.remaining} ${card.face} of ${card.suit.toLowerCase()}`}
+                                        />
+                                    ))}
+                                </UndealtPlayingCardsRow>
                             </Tab>
                         </Tabs>
                     </Col>
