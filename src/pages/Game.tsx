@@ -432,7 +432,7 @@ const Game: React.FC = () => {
 
                         <Row className='position-relative'>
                             <ToastContainer position='top-end'>
-                                {toastStack.map((info: ToastInfo, index: number) => (
+                                {toastStack && toastStack.map((info: ToastInfo, index: number) => (
                                     <Toast
                                         key={`${info.title}-${index}`}
                                         title={info.title}
@@ -445,7 +445,7 @@ const Game: React.FC = () => {
                             <h2>Your hand ({player.nickname})</h2>
                             
                             <PlayingCardsRow>
-                                {player.id ? 
+                                {player.id && playingCards ?
                                     playingCards.map((card: PlayingCardData, index: number) => (
                                         <PlayingCard 
                                             key={`${card.face}-${card.suit}-${index}`}
@@ -472,7 +472,7 @@ const Game: React.FC = () => {
                                 title='Players'
                                 className='p-3'
                             >
-                                {players.map((p: PlayerData, index: number) => {
+                                {players && players.map((p: PlayerData, index: number) => {
                                     let className = 'text-danger';
 
                                     if (index === 0) {
@@ -512,7 +512,7 @@ const Game: React.FC = () => {
                                 className='p-3'
                             >
                                 <UndealtPlayingCardsRow>
-                                    {undealtPlayingCards.map((card: UndealtPlayingCardsData) => (
+                                    {undealtPlayingCards && undealtPlayingCards.map((card: UndealtPlayingCardsData) => (
                                         <PlayingCard 
                                             key={`${card.face}-${card.suit}-${card.faceValue}-${card.remaining}`}
                                             face={card.face}
