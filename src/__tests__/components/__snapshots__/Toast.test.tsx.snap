@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast tests should render properly 1`] = `
+"<Toast show={true} onClose={[Function: handleOnClose]} delay={5000} autohide={true}>
+  <ToastHeader closeLabel=\\"Close\\" closeButton={true}>
+    <strong className=\\"me-auto\\">
+      Test
+    </strong>
+  </ToastHeader>
+  <ToastBody className=\\"\\" />
+</Toast>"
+`;
