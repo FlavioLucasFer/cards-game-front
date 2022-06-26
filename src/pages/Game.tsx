@@ -100,6 +100,13 @@ interface PlayerData {
     updatedAt: string;
 };
 
+interface UndealtSuitsData {
+    hearts: number;
+    spades: number;
+    clubs: number;
+    diamonds: number;
+}
+
 interface ToastInfo {
     title: string;
     message: string;
@@ -114,6 +121,12 @@ const Game: React.FC = () => {
     const [game, setGame] = useState<GameData>();
     const [playingCards, setPlayingCards] = useState<PlayingCardData[]>([]);
     const [players, setPlayers] = useState<PlayerData[]>([]);
+    const [undealtSuits, setUndealtSuits] = useState<UndealtSuitsData>({
+        hearts: 0,
+        spades: 0,
+        clubs: 0,
+        diamonds: 0,
+    });
 
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
@@ -129,6 +142,7 @@ const Game: React.FC = () => {
             getGame(),
             getCards(),
             getPlayers(),
+            getUndealtSuits(),
         ]);
     }
 
@@ -153,7 +167,7 @@ const Game: React.FC = () => {
 
     const getCards = async () => {
         try {
-            const { data } = await axiosInstance.get(`/players/${player.id}/cards`);
+            const { data } = await axiosInstance.get<PlayingCardData[]>(`/players/${player.id}/cards`);
             setPlayingCards(data);
         } catch (err) {
             console.log('err:', err);
@@ -163,8 +177,18 @@ const Game: React.FC = () => {
 
     const getPlayers = async () => {
         try {
-            const { data } = await axiosInstance.get(`/games/${uuid}/players`);
+            const { data } = await axiosInstance.get<PlayerData[]>(`/games/${uuid}/players`);
             setPlayers(data);
+        } catch (err) {
+            console.log('err:', err);
+            navigate('/');
+        }
+    }
+
+    const getUndealtSuits = async () => {
+        try {
+            const { data } = await axiosInstance.get<UndealtSuitsData>(`/games/${uuid}/undealt-suits`);
+            setUndealtSuits(data);
         } catch (err) {
             console.log('err:', err);
             navigate('/');
@@ -391,8 +415,6 @@ const Game: React.FC = () => {
                         <Tabs
                             defaultActiveKey='players'
                             id='game-info'
-                            mountOnEnter
-                            unmountOnExit
                         >
                             <Tab 
                                 eventKey='players' 
@@ -426,8 +448,12 @@ const Game: React.FC = () => {
                             <Tab 
                                 eventKey='undealt-suits' 
                                 title='Undealt suits'
+                                className='p-3 text-white fs-5'
                             >
-                                <h3>undealt suits tab</h3>
+                                <p>♥ Hearts: {undealtSuits.hearts}</p>
+                                <p>♠ Spades: {undealtSuits.spades}</p>
+                                <p>♣ Clubs: {undealtSuits.clubs}</p>
+                                <p>♦ Diamonds: {undealtSuits.diamonds}</p>
                             </Tab>
                             <Tab 
                                 eventKey='undealt-cards' 
