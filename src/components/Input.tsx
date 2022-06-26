@@ -6,7 +6,7 @@ const propTypes = {
     labelClassname: PropTypes.string,
 };
 
-type InputProps = React.HTMLProps<HTMLInputElement> & PropTypes.InferProps<typeof propTypes>;
+export type InputProps = React.HTMLProps<HTMLInputElement> & PropTypes.InferProps<typeof propTypes>;
 
 const Input: React.FC<InputProps> = props => {
     const {

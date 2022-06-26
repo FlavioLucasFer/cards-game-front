@@ -8,7 +8,7 @@ const propTypes = {
     margin: PropTypes.string,
 };
 
-type DividerProps = PropTypes.InferProps<typeof propTypes>;
+export type DividerProps = PropTypes.InferProps<typeof propTypes>;
 
 const Divider: React.FC<DividerProps> = props => {
     const { 

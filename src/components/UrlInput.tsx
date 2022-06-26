@@ -7,7 +7,7 @@ const propTypes = {
     urlPrefix: PropTypes.string.isRequired,
 };
 
-type UrlInputProps = React.HTMLProps<HTMLInputElement> & PropTypes.InferProps<typeof propTypes>;
+export type UrlInputProps = React.HTMLProps<HTMLInputElement> & PropTypes.InferProps<typeof propTypes>;
 
 const UrlInput: React.FC<UrlInputProps> = props => {
     const {
