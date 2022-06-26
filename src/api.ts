@@ -8,11 +8,14 @@ export type ApiError = {
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3333/api/v1',
+    headers: {
+        'Content-Type': 'application/json',
+    },
     transformRequest: [data => {
         if (!data)
             return data;
-        return snakecaseKeys(data);
-        
+
+        return JSON.stringify(snakecaseKeys(data));
     }],
     transformResponse: [data => {
         if (!data)
