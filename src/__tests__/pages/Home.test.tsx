@@ -5,11 +5,11 @@ import Home from '../../pages/Home';
 
 configure({ adapter: new Adapter() });
 
-const mockedUsedNavigate = jest.fn();
+const mockedUseNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom') as any,
-    useNavigate: () => mockedUsedNavigate,
+    useNavigate: () => mockedUseNavigate,
 }));
 
 describe('Home tests', () => {

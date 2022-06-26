@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddPlayerToGame tests should render properly 1`] = `
+"<Modal aria-labelledby=\\"contained-modal-title-vcenter\\" centered={true} show={false} backdrop={true} keyboard={true} autoFocus={true} enforceFocus={true} restoreFocus={true} animation={true} dialogAs={{...}}>
+  <ModalBody>
+    <Input id=\\"nickname-input\\" label=\\"Nickname\\" value=\\"\\" onChange={[Function: handleNicknameChange]} autoFocus={true} />
+  </ModalBody>
+  <ModalFooter>
+    <Button onClick={[Function: handleJoin]} disabled={true} variant=\\"primary\\" active={false}>
+      Join
+    </Button>
+  </ModalFooter>
+</Modal>"
+`;
