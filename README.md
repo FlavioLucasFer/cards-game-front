@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# Cards Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About the project
 
-## Available Scripts
+<p>
+    This project is a front-end representation of a RESTful API built-in with 
+    <a href="https://adonisjs.com/" target="_blank">AdonisJs</a> v5.8.0 in TypeScript environment. The front-end was built-in with React in TypeScript environment. This project was developed as a homework assignment  for a job opportunity. The project of the API is avaliable on: <a href="https://github.com/FlavioLucasFer/cards-game" target="_blank">https://github.com/FlavioLucasFer/cards-game</a>
+</p>
 
-In the project directory, you can run:
+# Running the app
 
-### `npm start`
+### prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    - NodeJs LTS
+    - NPM package manager LTS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installing the dependencies
 
-### `npm test`
+You need the *yarn* package manager to run the projects commands, so, to install *yarn* type on the root of the project:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm i yarn
 
-### `npm run build`
+If you want to install *yarn* globally, then type:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    npm i yarn -g
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If you already have *yarn* installed, go ahead.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now, to install the dependencies, type:
 
-### `npm run eject`
+    yarn i 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+if some problem occurs with *yarn i* try *npm i* instead.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<small>
+    <b>note</b>: if you don't want to install *yarn* anyway, you can trade most of the command by the refferent *npm* command.
+</small>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Running the API
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Before run the app, make sure that the API is running. To clone the API project and run it you can follow the tutorial at <a href="https://github.com/FlavioLucasFer/cards-game" target="_blank">https://github.com/FlavioLucasFer/cards-game</a>
 
-## Learn More
+# Running the app
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run the app, just type in the root of the project:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    yarn start
+
+# Running the tests
+
+To run the automated tests, type:
+
+    yarn test
+
+# Known limitations
+
+    - Only render tests (snapshot tests)
