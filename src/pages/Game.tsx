@@ -9,7 +9,7 @@ import AddPlayerToGame from '../modals/AddPlayerToGame';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import Divider from '../components/Divider';
-import { Button, Tab, Tabs, ToastContainer, ToggleButton } from 'react-bootstrap';
+import { Button, Stack, Tab, Tabs, ToastContainer, ToggleButton } from 'react-bootstrap';
 import Toast from '../components/Toast';
 import PlayingCard from '../components/PlayingCard';
 import moment from 'moment';
@@ -91,6 +91,15 @@ interface PlayingCardData {
     updatedAt: string;
 }
 
+interface PlayerData {
+    id: number;
+    gameId: number;
+    nickname: string;
+    handValue: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
 interface ToastInfo {
     title: string;
     message: string;
@@ -104,16 +113,24 @@ const Game: React.FC = () => {
 
     const [game, setGame] = useState<GameData>();
     const [playingCards, setPlayingCards] = useState<PlayingCardData[]>([]);
+    const [players, setPlayers] = useState<PlayerData[]>([]);
+
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
     const [toastStack, setToastStack] = useState<ToastInfo[]>([]);
 
     useEffect(() => {
-        Promise.all([
+        if (player.id)
+            initialFetch();
+    }, [uuid, player.id]);
+
+    const initialFetch = async () => {
+        await Promise.all([
             getGame(),
             getCards(),
+            getPlayers(),
         ]);
-    }, [uuid]);
+    }
 
     const getGame = async () => {
         try {
@@ -138,6 +155,16 @@ const Game: React.FC = () => {
         try {
             const { data } = await axiosInstance.get(`/players/${player.id}/cards`);
             setPlayingCards(data);
+        } catch (err) {
+            console.log('err:', err);
+            navigate('/');
+        }
+    }
+
+    const getPlayers = async () => {
+        try {
+            const { data } = await axiosInstance.get(`/games/${uuid}/players`);
+            setPlayers(data);
         } catch (err) {
             console.log('err:', err);
             navigate('/');
@@ -251,7 +278,7 @@ const Game: React.FC = () => {
         <>
             <FullScreenContainer fluid>
                 <Row className='vh-100'>
-                    <MainCol 
+                    <MainCol
                         className='h-100'
                         sm={12}
                         md={8}
@@ -343,13 +370,15 @@ const Game: React.FC = () => {
                             <h2>Your hand ({player.nickname})</h2>
                             
                             <PlayingCardsRow>
-                                {playingCards.map((card: PlayingCardData, index: number) => (
-                                    <PlayingCard 
-                                        key={`${card.face}-${card.suit}-${index}`}
-                                        face={card.face}
-                                        suit={card.suit}
-                                    />
-                                ))}
+                                {player.id ? 
+                                    playingCards.map((card: PlayingCardData, index: number) => (
+                                        <PlayingCard 
+                                            key={`${card.face}-${card.suit}-${index}`}
+                                            face={card.face}
+                                            suit={card.suit}
+                                        />
+                                    ))
+                                : <></>}
                             </PlayingCardsRow>
                         </Row>
                     </MainCol>
@@ -368,8 +397,31 @@ const Game: React.FC = () => {
                             <Tab 
                                 eventKey='players' 
                                 title='Players'
+                                className='p-3'
                             >
-                                <h3>players tab</h3>
+                                {players.map((p: PlayerData, index: number) => {
+                                    let className = 'text-danger';
+
+                                    if (index === 0) {
+                                        className = 'text-success fs-5';
+                                    }
+                                    else if (index > 0 && index < 6)
+                                        className = 'text-warning';
+
+                                    if (p.id === player.id)
+                                        className += ' fw-bold';
+
+                                    return (
+                                        <p 
+                                            key={`${p.nickname}-${p.id}`}
+                                            className={className}
+                                        >
+                                            {index === 0 && '👑 '} 
+                                            {index+1} - {p.id === player.id && '(you) '} 
+                                            {p.nickname} ({p.handValue})
+                                        </p>
+                                    );
+                                })}
                             </Tab>
                             <Tab 
                                 eventKey='undealt-suits' 
