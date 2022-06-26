@@ -4,7 +4,7 @@
 
 <p>
     This project is a front-end representation of a RESTful API built-in with 
-    <a href="https://adonisjs.com/" target="_blank">AdonisJs</a> v5.8.0 in TypeScript environment. The front-end was built-in with React in TypeScript environment. This project was developed as a homework assignment  for a job opportunity. The project of the API is avaliable on: <a href="https://github.com/FlavioLucasFer/cards-game" target="_blank">https://github.com/FlavioLucasFer/cards-game</a>
+    <a href="https://adonisjs.com/" target="_blank">AdonisJs</a> v5.8.0 in the TypeScript environment. The front-end was built-in with React in the TypeScript environment. This project was developed as a homework assignment  for a job opportunity. The project of the API is avaliable on: <a href="https://github.com/FlavioLucasFer/cards-game" target="_blank">https://github.com/FlavioLucasFer/cards-game</a>
 </p>
 
 # Running the app
