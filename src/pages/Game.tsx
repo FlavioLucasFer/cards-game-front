@@ -46,35 +46,35 @@ const GameInfoP = styled.p`
 
 const PlayingCardsRow = styled(Row)`
     overflow-y: auto;
-    height: 660px;
+    height: 650px;
 
     @media(max-width: 1440px) {
-        height: 570px;
+        height: 560px;
     }
 
     @media(max-width: 1024px) {
-        height: 550px;
+        height: 540px;
     }
 
     @media(max-width: 768px) {
-        height: 530px;
+        height: 520px;
     }
 
     @media(max-width: 425px) {
-        height: 470px;
+        height: 460px;
     }
 `;
 
 const UndealtPlayingCardsRow = styled(Row)`
     overflow-y: auto;
-    height: 810px;
+    height: 750px;
 
     @media(max-width: 1440px) {
-        height: 720px;
+        height: 660px;
     }
 
     @media(max-width: 1024px) {
-        height: 680px;
+        height: 620px;
     }
 `;
 
@@ -152,10 +152,14 @@ const Game: React.FC = () => {
     const [autoShuffle, setAutoShuffle] = useState<boolean>(false);
     const [showAddPlayerModal, setShowAddPlayerModel] = useState<boolean>(!player.id);
     const [toastStack, setToastStack] = useState<ToastInfo[]>([]);
+    const [autoFetchInterval, setAutoFetchInterval] = useState<NodeJS.Timer|null>(null);
 
     useEffect(() => {
         if (player.id)
             initialFetch();
+
+        if (autoFetchInterval)
+            return clearInterval(autoFetchInterval);
     }, [uuid, player.id]);
 
     const initialFetch = async () => {
@@ -166,6 +170,16 @@ const Game: React.FC = () => {
             getUndealtSuits(),
             getUndealtPlayingCards(),
         ]);
+
+        const interval = setInterval(async () => {
+            await Promise.all([
+                getPlayers(),
+                getUndealtSuits(),
+                getUndealtPlayingCards(),
+            ]);
+        }, 15000);
+
+        setAutoFetchInterval(interval);
     }
 
     const getGame = async () => {
@@ -505,6 +519,9 @@ const Game: React.FC = () => {
                                 </UndealtPlayingCardsRow>
                             </Tab>
                         </Tabs>
+                        <small className='fst-italic text-white text-center w-100'>
+                            Data auto-update every 15 seconds
+                        </small>
                     </Col>
                 </Row>
             </FullScreenContainer>
